@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ChevronDoubleLeft } from "react-bootstrap-icons";
 
 export default function ProfilePage() {
   return (
@@ -84,7 +85,10 @@ export default function ProfilePage() {
         </div>
 
         <Link href="/">
-          <a>戻る</a>
+          <a className="text-decoration-none">
+            <ChevronDoubleLeft />
+            <span style={{ verticalAlign: "middle" }}>HOMEへ</span>
+          </a>
         </Link>
       </div>
     </>
