@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronDoubleLeft } from "react-bootstrap-icons";
 
-export default function ProfilePage() {
+export default function Profile() {
   return (
     <>
       <div className="container">
