@@ -84,12 +84,14 @@ export default function ProfilePage() {
           </p>
         </div>
 
-        <Link href="/">
-          <a className="text-decoration-none">
-            <ChevronDoubleLeft />
-            <span style={{ verticalAlign: "middle" }}>HOMEへ</span>
-          </a>
-        </Link>
+        <div className="mb-3">
+          <Link href="/">
+            <a className="text-decoration-none">
+              <ChevronDoubleLeft />
+              <span style={{ verticalAlign: "middle" }}>HOMEへ</span>
+            </a>
+          </Link>
+        </div>
       </div>
     </>
   );
