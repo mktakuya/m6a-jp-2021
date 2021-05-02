@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { Post } from "../types";
 
-export default function Home() {
+import Parser from "rss-parser";
+
+type HomeProps = {
+  recentPosts: Post[];
+};
+
+export default function Home({ recentPosts }: HomeProps) {
   return (
     <>
       <div className="container">
@@ -17,8 +24,63 @@ export default function Home() {
               </a>
             </Link>
           </div>
+
+          <div className="mx-auto w-75 p-3">
+            <h2 className="h2">Blog</h2>
+            <ul>
+              {recentPosts.map((post) => {
+                return (
+                  <li key={post.guid}>
+                    <a
+                      href={post.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {post.title}
+                    </a>
+                    <br />
+                    {post.publishedAt}
+                  </li>
+                );
+              })}
+            </ul>
+            <a
+              href="https://blog.m6a.jp"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              もっと読む
+            </a>
+          </div>
         </div>
       </div>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const recentPosts: Post[] = [];
+
+  const parser = new Parser();
+
+  const feed = await parser.parseURL("https://blog.m6a.jp/rss");
+  const items: Post[] = feed.items.map((item) => {
+    const postItem: Post = {
+      guid: item.guid,
+      title: item.title,
+      publishedAt: item.pubDate,
+      url: item.link,
+    };
+    return postItem;
+  });
+
+  items.slice(0, 5).forEach((post) => {
+    recentPosts.push(post);
+  });
+
+  return {
+    props: {
+      recentPosts,
+    },
+  };
 }
