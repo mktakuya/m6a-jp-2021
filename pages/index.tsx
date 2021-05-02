@@ -1,8 +1,8 @@
 import Link from "next/link";
+import Parser from "rss-parser";
 import { Post } from "../types";
 import PublishedAt from "../components/date";
-
-import Parser from "rss-parser";
+import { getRecentPosts } from "../lib/posts";
 
 type HomeProps = {
   recentPosts: Post[];
@@ -60,24 +60,7 @@ export default function Home({ recentPosts }: HomeProps) {
 }
 
 export async function getStaticProps() {
-  const recentPosts: Post[] = [];
-
-  const parser = new Parser();
-
-  const feed = await parser.parseURL("https://blog.m6a.jp/rss");
-  const items: Post[] = feed.items.map((item) => {
-    const postItem: Post = {
-      guid: item.guid,
-      title: item.title,
-      publishedAt: item.pubDate,
-      url: item.link,
-    };
-    return postItem;
-  });
-
-  items.slice(0, 5).forEach((post) => {
-    recentPosts.push(post);
-  });
+  const recentPosts: Post[] = await getRecentPosts({ count: 5 });
 
   return {
     props: {
