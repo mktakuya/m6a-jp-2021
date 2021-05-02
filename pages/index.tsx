@@ -1,6 +1,14 @@
 import Link from "next/link";
+import Parser from "rss-parser";
+import { Post } from "../types";
+import PublishedAt from "../components/date";
+import { getRecentPosts } from "../lib/posts";
 
-export default function Home() {
+type HomeProps = {
+  recentPosts: Post[];
+};
+
+export default function Home({ recentPosts }: HomeProps) {
   return (
     <>
       <div className="container">
@@ -17,8 +25,46 @@ export default function Home() {
               </a>
             </Link>
           </div>
+
+          <div className="mx-auto w-75 p-3">
+            <h2 className="h2">Blog</h2>
+            <ul>
+              {recentPosts.map((post) => {
+                return (
+                  <li key={post.guid}>
+                    <a
+                      href={post.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {post.title}
+                    </a>
+                    <br />
+                    <PublishedAt publishedAtString={post.publishedAt} />
+                  </li>
+                );
+              })}
+            </ul>
+            <a
+              href="https://blog.m6a.jp"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              もっと読む
+            </a>
+          </div>
         </div>
       </div>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const recentPosts: Post[] = await getRecentPosts({ count: 5 });
+
+  return {
+    props: {
+      recentPosts,
+    },
+  };
 }
