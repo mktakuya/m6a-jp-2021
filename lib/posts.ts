@@ -10,11 +10,14 @@ export async function getRecentPosts({ count }: GetRecentPostsProps) {
 
   const feed = await parser.parseURL("https://blog.m6a.jp/rss");
   const items: Post[] = feed.items.map((item) => {
+    const url = new URL(item.link);
+    const filteredUrl = url.origin + url.pathname;
+
     const postItem: Post = {
       guid: item.guid,
       title: item.title,
       publishedAt: item.pubDate,
-      url: item.link,
+      url: filteredUrl,
     };
     return postItem;
   });
