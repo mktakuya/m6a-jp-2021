@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Post } from "../types";
+import PublishedAt from "../components/date";
 
 import Parser from "rss-parser";
 
@@ -39,7 +40,7 @@ export default function Home({ recentPosts }: HomeProps) {
                       {post.title}
                     </a>
                     <br />
-                    {post.publishedAt}
+                    <PublishedAt publishedAtString={post.publishedAt} />
                   </li>
                 );
               })}
