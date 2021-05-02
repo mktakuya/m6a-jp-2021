@@ -1,8 +1,9 @@
-import Link from "next/link";
-import Parser from "rss-parser";
+import NextLink from "next/link";
+import { Avatar, Box, Link, Heading, Text } from "@chakra-ui/react";
 import { Post } from "../types";
-import PublishedAt from "../components/date";
 import { getRecentPosts } from "../lib/posts";
+import { Layout } from "../components/Layout";
+import { EntryList } from "../components/EntryList";
 
 type HomeProps = {
   recentPosts: Post[];
@@ -10,52 +11,45 @@ type HomeProps = {
 
 export default function Home({ recentPosts }: HomeProps) {
   return (
-    <>
-      <div className="container">
-        <div className="mt-5">
-          <div className="text-center">
-            <h1 className="h1">ようこそ mktakuyaのホームページへ</h1>
-            <Link href="/profile">
-              <a>
-                <img
-                  src="/images/mktakuya.png"
-                  className="rounded mx-auto d-block mt-5 mb-3"
-                />
-                <p className="lead">入場する</p>
-              </a>
-            </Link>
-          </div>
+    <Layout>
+      <Box as="header" maxWidth="42rem" mx="auto" textAlign="center">
+        <Avatar size="2xl" name="mktakuya" src="/images/mktakuya.png" />
 
-          <div className="mx-auto w-75 p-3">
-            <h2 className="h2">Blog</h2>
-            <ul>
-              {recentPosts.map((post) => {
-                return (
-                  <li key={post.guid}>
-                    <a
-                      href={post.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {post.title}
-                    </a>
-                    <br />
-                    <PublishedAt publishedAtString={post.publishedAt} />
-                  </li>
-                );
-              })}
-            </ul>
-            <a
-              href="https://blog.m6a.jp"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              もっと読む
-            </a>
-          </div>
-        </div>
-      </div>
-    </>
+        <Heading as="h1" size="2xl" m="1rem 0">
+          Takuya Mukohira
+          <Text fontSize="smaller" color="GrayText">
+            mktakuya
+          </Text>
+        </Heading>
+      </Box>
+
+      <Box maxWidth="42rem" mx="auto" my="3rem">
+        <Text fontSize="xl" my="0.5rem">
+          北海道千歳市出身 / 神奈川県在住のソフトウェアエンジニア。
+          <br />
+          <Link href="https://yuru28.com" color="blue.500" isExternal>
+            ゆるふわPodcast
+          </Link>
+          のホスト・編集者。
+          <br />
+        </Text>
+
+        <Text fontSize="xl" my="0.5rem">
+          詳細なプロフィールは
+          <NextLink href="/profile">
+            <Link color="blue.500">こちら</Link>
+          </NextLink>
+        </Text>
+      </Box>
+
+      <Box maxWidth="42rem" mx="auto" my="3rem">
+        <Heading as="h2" size="xl" m="1rem 0">
+          Blog
+        </Heading>
+
+        <EntryList posts={recentPosts} />
+      </Box>
+    </Layout>
   );
 }
 
