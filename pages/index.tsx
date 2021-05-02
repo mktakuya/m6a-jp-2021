@@ -1,4 +1,4 @@
-import { Avatar, Box, Link, Heading, Text } from "@chakra-ui/react";
+import { Avatar, Box, Grid, Link, Heading, Text } from "@chakra-ui/react";
 import { Post } from "../types";
 import { getRecentPosts } from "../lib/posts";
 import { Layout } from "../components/Layout";
@@ -22,7 +22,39 @@ export default function Home({ recentPosts }: HomeProps) {
         </Heading>
       </Box>
 
-      <Box maxWidth="42rem" mx="auto" my="3rem">
+      <Box maxWidth="42rem" m="1rem auto">
+        <Grid mx="auto" templateColumns="repeat(3, 1fr)" gap={6}>
+          <Link
+            href="https://twitter.com/mktakuya"
+            textAlign="center"
+            w="100%"
+            color="blue.500"
+            isExternal
+          >
+            Twitter
+          </Link>
+          <Link
+            href="https://facebook.com/mktakuya"
+            textAlign="center"
+            w="100%"
+            color="blue.500"
+            isExternal
+          >
+            Facebook
+          </Link>
+          <Link
+            href="https://github.com/mktakuya"
+            textAlign="center"
+            w="100%"
+            color="blue.500"
+            isExternal
+          >
+            GitHub
+          </Link>
+        </Grid>
+      </Box>
+
+      <Box maxWidth="42rem" m="2rem auto">
         <Text fontSize="xl" my="0.5rem">
           北海道千歳市出身 / 神奈川県在住のソフトウェアエンジニア。
           <br />
@@ -34,7 +66,7 @@ export default function Home({ recentPosts }: HomeProps) {
         </Text>
       </Box>
 
-      <Box maxWidth="42rem" mx="auto" my="3rem">
+      <Box maxWidth="42rem" mx="auto" my="2rem">
         <Heading as="h2" size="xl" m="1rem 0">
           Blog
         </Heading>
