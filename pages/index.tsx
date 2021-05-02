@@ -1,4 +1,3 @@
-import NextLink from "next/link";
 import { Avatar, Box, Link, Heading, Text } from "@chakra-ui/react";
 import { Post } from "../types";
 import { getRecentPosts } from "../lib/posts";
@@ -32,13 +31,6 @@ export default function Home({ recentPosts }: HomeProps) {
           </Link>
           のホスト・編集者。
           <br />
-        </Text>
-
-        <Text fontSize="xl" my="0.5rem">
-          詳細なプロフィールは
-          <NextLink href="/profile">
-            <Link color="blue.500">こちら</Link>
-          </NextLink>
         </Text>
       </Box>
 
